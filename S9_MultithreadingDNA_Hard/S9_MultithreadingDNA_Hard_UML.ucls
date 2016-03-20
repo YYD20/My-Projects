@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="ORFFinder" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/ORFFinder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="171" x="755" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="ReverseComplementor" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/ReverseComplementor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="214" x="966" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="3" language="java" name="Translator.Codon" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/Translator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1325" width="179" x="310" y="680"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="4" language="java" name="DNAHardTest" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/DNAHardTest.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="125" x="145" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="Translator" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/Translator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="173" x="310" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="DNAHard" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/DNAHard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="317" width="194" x="525" y="92"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="FrameBuilder" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/FrameBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="171" x="1220" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" name="Buffer" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/Buffer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="156" x="715" y="680"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="9" language="java" name="GapFinder" project="S9_MultithreadingDNA_Hard" 
+    file="/S9_MultithreadingDNA_Hard/src/GapFinder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="171" x="523" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="10">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="11" name="sharedLocation"/>      
+      <multiplicity id="12" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="14" name="sharedLocation"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="16">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <association id="17">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="18" name="sharedLocation"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="21" name="sharedLocation"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="25">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="26" name="sharedLocation"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="28">    
+    <bendpoint x="724" y="449"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

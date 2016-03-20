@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="TreeNode" project="21-25_PrintingTrees_Hard" 
+    file="/21-25_PrintingTrees_Hard/src/TreeNode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="108" y="388"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="Tree" project="21-25_PrintingTrees_Hard" 
+    file="/21-25_PrintingTrees_Hard/src/Tree.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="114" y="110"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="TreeTest" project="21-25_PrintingTrees_Hard" 
+    file="/21-25_PrintingTrees_Hard/src/TreeTest.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="265" y="65"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="TreeGUI" project="21-25_PrintingTrees_Hard" 
+    file="/21-25_PrintingTrees_Hard/src/TreeGUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="268" y="172"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="5">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="6" name="treeNodes">        
+        <position height="19" width="68" x="13" y="271"/>      
+      </attribute>      
+      <multiplicity id="7" minimum="0" maximum="2147483647">        
+        <position height="17" width="23" x="98" y="273"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="8">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="9" name="treeNumbers">        
+        <position height="19" width="82" x="8" y="286"/>      
+      </attribute>      
+      <multiplicity id="10" minimum="0" maximum="2147483647">        
+        <position height="17" width="23" x="85" y="288"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="11">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="12" name="rightNode">        
+        <position height="19" width="65" x="174" y="400"/>      
+      </attribute>      
+      <multiplicity id="13" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="14">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="15" name="leftNode">        
+        <position height="19" width="57" x="177" y="392"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="18" name="root">        
+        <position height="19" width="29" x="60" y="299"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="1">        
+        <position height="17" width="25" x="110" y="287"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
