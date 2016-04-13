@@ -4,6 +4,7 @@ import java.lang.*;
 public class ClosestPair {
 	
 	    private static Random randomGenerator;  // for random numbers
+	    private static double bestDistance = Double.POSITIVE_INFINITY;
 	    
 	    public static class Point implements Comparable<Point> 
 	    {  
@@ -116,9 +117,27 @@ public class ClosestPair {
 	    {
 	    	// A straightforward method for computing the distance 
 	    	// of the two closest points in plane[0..N-1].
-	    	
-	    	// to be completed
-	    	return 0.0;
+	    	double delta = 0;
+	    	 for (int i = 0; i < N; i++) 
+	    	 {
+	             // a geometric packing argument shows that this loop iterates at most 7 times
+	    		 //double delta = Math.min(plane[i], plane[i]);
+	             for (int j = i+1; (j < N) && (plane[j].y - plane[i].y < delta); j++) 
+	             {
+	                 double distance = plane[i].distance(plane[j]);
+	                 if (distance < delta) {
+	                     delta = distance;
+	                     if (distance < bestDistance) 
+	                     {
+	                         bestDistance = delta;
+	                        // best1 = plane[i];
+	                         //best2 = plane[j];
+	                         
+	                     }
+	                 }
+	             }
+	         }
+	         return delta;
 	    }
 	    
 		static void exchange(int i, int j) 
@@ -182,7 +201,9 @@ public class ClosestPair {
 	    	else 
 	    	{  // 4 or more points: Divide and conquer
 	    		// to be completed
-	    		return 0.0;
+	    		return minDisDivideConquer(low,high);
+	    		//return 0.0;
 	    	}
+	    	
 	    }
 }
