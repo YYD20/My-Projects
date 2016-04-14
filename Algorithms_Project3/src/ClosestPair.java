@@ -4,7 +4,6 @@ import java.lang.*;
 public class ClosestPair {
 	
 	    private static Random randomGenerator;  // for random numbers
-	    private static double bestDistance = Double.POSITIVE_INFINITY;
 	    
 	    public static class Point implements Comparable<Point> 
 	    {  
@@ -22,32 +21,9 @@ public class ClosestPair {
 	        {
 	        	// compare this and p and there are three results: >0, ==0, or <0
 	            if (this.x == p.x) 
-					if (this.y == p.y) 
-					{
-						return 0;
-					}
-				    else 
-				    {
-				    	if(this.y>p.y)
-				    	{
-				    		return 1;
-				    	}
-				    	else
-				    	{
-				    		return -1;
-				    	}
-				    }
-	            else 
-	            {
-	            	if (this.x > p.x)
-	            	{
-	            		return 1;
-	            	}
-	            	else
-	            	{
-	            		return -1;
-	            	}
-	            }
+					if (this.y == p.y) return 0;
+				    else return (this.y > p.y)? 1 : -1;
+	            else return (this.x > p.x)? 1 : -1;
 	        }
 	        
 	        public String toString() 
@@ -117,27 +93,19 @@ public class ClosestPair {
 	    {
 	    	// A straightforward method for computing the distance 
 	    	// of the two closest points in plane[0..N-1].
-	    	double delta = 0;
+	    	double min = Double.MAX_VALUE;
 	    	 for (int i = 0; i < N; i++) 
 	    	 {
-	             // a geometric packing argument shows that this loop iterates at most 7 times
-	    		 //double delta = Math.min(plane[i], plane[i]);
-	             for (int j = i+1; (j < N) && (plane[j].y - plane[i].y < delta); j++) 
+	             for (int j = i+1; j<N; j++) 
 	             {
-	                 double distance = plane[i].distance(plane[j]);
-	                 if (distance < delta) {
-	                     delta = distance;
-	                     if (distance < bestDistance) 
-	                     {
-	                         bestDistance = delta;
-	                        // best1 = plane[i];
-	                         //best2 = plane[j];
-	                         
-	                     }
+	                // double distance = plane[i].distance(plane[j]);
+	                 if (plane[i].distance(plane[j]) < min) 
+	                 {
+	                   min = plane[i].distance(plane[j]);
 	                 }
 	             }
 	         }
-	         return delta;
+	         return min;
 	    }
 	    
 		static void exchange(int i, int j) 
@@ -182,27 +150,23 @@ public class ClosestPair {
 	    		double d1 = plane[low].distance(plane[high]);
 	    		double d2 = plane[low].distance(plane[low+1]);
 	    		double d3 = plane[low+1].distance(plane[high]);
-	    		if(d1<d2)
-	    		{
-	    			if(d1<d3)
-	    				return d1;
-	    			else 
-	    				return d3;
-	    		}
-	    		else
-	    		{
-	    			if(d2<d3)
-	    				return d2;
-	    			else
-	    				return d3;
-	    		}
-	    		//return ((d1 < d2)? ((d1 < d3)? d1 : d3) : (d2 < d3)? d2 : d3);  // return min(d1, d2, d3)
+	    		return ((d1 < d2)? ((d1 < d3)? d1 : d3) : (d2 < d3)? d2 : d3);  // return min(d1, d2, d3)
 	    	} 
 	    	else 
 	    	{  // 4 or more points: Divide and conquer
 	    		// to be completed
-	    		return minDisDivideConquer(low,high);
-	    		//return 0.0;
+	    		int middle = (high + low)/2;
+	    		double var1 = minDisDivideConquer(low,middle);
+	    		double var2 = minDisDivideConquer(middle,high);
+	    		if(var1<var2)
+	    		{
+	    			return var1;
+	    		}
+	    		else
+	    		{
+	    			return var2;
+	    		}
+	    		//return ((var1<var2)? var1:var2);
 	    	}
 	    	
 	    }
