@@ -19,12 +19,19 @@ import java.util.Arrays;
 public class knight {
 
 	static long recurCalls = 0;      // number of recursive calls to solve()
-	static long recurCallsH = 0;      // number of recursive calls to solveClosed()
+	static long recurCallsH = 0;      // number of recursive calls to solveWarnsdorff()
+	static long recurCallsCF = 0;      // number of recursive calls to solveClosedFixed()
+	static long recurCallsC = 0;      // number of recursive calls to solveCLosed()
 	static final int[][] direction={ {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}, {2, -1}, {2, 1} };
 	static int M = 4;
 	static int N = 4;
 	static int[][] Board;
+	static final int MaxStep = N*M;
 	private static BufferedReader read;
+	static int iStart = 0;
+	static int jStart = 0;
+	static int iPrev = 0;
+	static int jPrev = 0;
 
 	static boolean solve(int step, int i, int j) 
 	{
@@ -52,6 +59,11 @@ public class knight {
 		return ( x < N  && x >= 0 && y < M  && y >=0  &&
 				Board[x][y] == 0 );
 	}
+	static boolean isValidMoveDiff(int x, int y)
+	{
+		return ( x < N  && x >= 0 && y < M  && y >=0  &&
+				Board[x][y] == 1 );
+	}
 	static int degree(int x, int y)
 	{
 		int deg = 0;
@@ -64,7 +76,7 @@ public class knight {
 		}
 		return deg;
 	}
-	static boolean solveClosed(int step, int i, int j)
+	static boolean solveWarnsdorff(int step, int i, int j)
 	{
 		// Warnsdorf Heurisitc Approach
 		recurCallsH++;
@@ -77,13 +89,111 @@ public class knight {
 			int i1 = i+direction[k][0];
 			int j1 = j+direction[k][1];
 			int newDegree = degree(i1,j1);
+			if (isValidMove(i1,j1) && newDegree<degree)
+			{ 
+				
+					i = i1;
+					j = j1;
+					degree = newDegree;
+					//System.out.printf("Step %d\n",step);
+					//printBoard(Board);
+					if (solveWarnsdorff(step+1,i, j))
+					{
+						return true;
+					}
+					else Board[i][j] = 0;
+				
+				
+			}
+			//Board[i][j] = 0;
+		}
+		return false;
+	}
+	static boolean solveClosed(int step, int i, int j)
+	{
+		// Warnsdorf Heurisitc Approach with for closed path
+		
+		recurCallsC++;
+		int degree = 8;
+		//int stepReal = step;
+		Board[i][j] = step;
+		if (step == N*M)
+		{
+			for (int k = 0; k < 8; k++) 
+			{
+				int i1 = i+direction[k][0];
+				int j1 = j+direction[k][1];
+			
+				if (isValidMoveDiff(i1,j1) )
+					return true;
+				
+					
+			}
+			return false;
+		}
+		
+		for (int k = 0; k < 8; k++) 
+		{
+			int i1 = i+direction[k][0];
+			int j1 = j+direction[k][1];
+			int newDegree = degree(i1,j1);
+			
 			if (isValidMove(i1,j1) && newDegree < degree )
 			{ 
 				i = i1;
 				j = j1;
-				degree = newDegree;
 				
-				if (solveClosed(step+1,i, j)) return true;
+				degree = newDegree;
+				if (solveClosed(step+1,i1, j1)) return true;
+				else Board[i1][j1] = 0;
+			}
+		}
+		return false;
+	}
+	static boolean solveClosedFixed(int step, int i, int j)
+	{
+		recurCallsCF++;
+		int degree = 8;
+		//int stepReal = step;
+		
+		int iCurr = i;
+		int jCurr = j;
+		Board[i][j] = step;
+		if(step == 1)
+		{
+			iPrev = iCurr;
+			jPrev = jCurr;
+		}
+		if(step == 2)
+		{
+			Board[jPrev][iPrev] = 25;
+		}
+		if (step == (N*M)-1)
+		{
+			for (int k = 0; k < 8; k++) 
+			{
+				int i1 = i+direction[k][0];
+				int j1 = j+direction[k][1];
+			
+				if (isValidMoveDiff(i1,j1) )
+					return true;
+			}
+			return false;
+		}
+		
+		for (int k = 0; k < 8; k++) 
+		{
+			int i1 = i+direction[k][0];
+			int j1 = j+direction[k][1];
+			int newDegree = degree(i1,j1);
+			
+			if (isValidMove(i1,j1) && newDegree < degree )
+			{ 
+				i = i1;
+				j = j1;
+				
+				degree = newDegree;
+				if (solveClosedFixed(step+1,i1, j1)) return true;
 				else Board[i1][j1] = 0;
 			}
 		}
@@ -120,11 +230,7 @@ public class knight {
 			ex.printStackTrace();
 		}
 		if (N>M) 
-		{ 
-			int i = N; 
-			N = M;
-			M = i; 
-		}
+		{ int i = N; N = M;M = i; }
 
 		// create Board and set each entry to 0
 		Board = new int[N][M];
@@ -140,14 +246,14 @@ public class knight {
 		else System.out.println("No tour was found.");
 
 		System.out.println("Number of recursive calls = " + recurCalls);
-		//reset board for next approach
+		//rest board for fixed approach
 		Board = new int[N][M];
 		for (int i = 0; i < N; i++)
 			for (int j = 0; j < M; j++) 
 				Board[i][j] = 0;
 
 		
-		if (solveClosed(1, 0, 0))
+		if (solveWarnsdorff(1, 0, 0))
 			{
 				System.out.println("\nWarnsdorff's Algorithm with Recursive Backtracking");
 				printBoard(Board);
@@ -155,6 +261,80 @@ public class knight {
 		else System.out.println("No tour was found.");
 
 		System.out.println("Number of recursive calls = " + recurCallsH);
+		//reset board for Closed approach
+		Board = new int[N][M];
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < M; j++) 
+				Board[i][j] = 0;
+
+		boolean closedPath = solveClosed(1,iStart,jStart);
+		if(!closedPath)
+		{
+			for (int i = 0; i <N && closedPath!=true ; i++)
+			{
+				//if(closedPath == true) break;
+				for (int j = 0; j < M && closedPath!=true ; j++)
+				{
+					//Reset Board
+					for (int k = 0;k < N; k++){
+						for (int l = 0; l < M; l++) {
+							Board[k][l] = 0;
+						}
+					}
+					iStart = i;
+					jStart = j;
+					//if(closedPath == true)break;	
+					closedPath = solveClosed(1,iStart,jStart);
+				}
+			}
+		}
+		if (closedPath)
+			{
+				System.out.println("\nClosed Path");
+				printBoard(Board);
+			}
+		else System.out.println("No tour was found.");
+
+		System.out.println("Number of recursive calls = " + recurCallsC);
+		//Closed Fixed Path
+		Board = new int[N][M];
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < M; j++) 
+				Board[i][j] = 0;
+
+		iStart = 0;
+		jStart = 0;
+		boolean closedPathFixed = solveClosedFixed(1,iStart,jStart);
+		if(!closedPathFixed)
+		{
+			for (int i = 0; i <N && closedPathFixed!=true ; i++)
+			{
+				//if(closedPath == true) break;
+				for (int j = 0; j < M && closedPathFixed!=true ; j++)
+				{
+					//Reset Board
+					for (int k = 0;k < N; k++){
+						for (int l = 0; l < M; l++) {
+							Board[k][l] = 0;
+						}
+					}
+					iStart = i;
+					jStart = j;
+					//if(closedPath == true)break;	
+					closedPathFixed = solveClosedFixed(1,iStart,jStart);
+				}
+			}
+		}
+		if (closedPathFixed)
+			{
+				System.out.println("\nClosed Fixed Path");
+				printBoard(Board);
+			}
+		else System.out.println("No tour was found.");
+
+		System.out.println("Number of recursive calls = " + recurCallsCF);
+		
+		
 	} 
 
 }
