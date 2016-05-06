@@ -26,12 +26,13 @@ public class knight {
 	static int M = 4;
 	static int N = 4;
 	static int[][] Board;
-	static final int MaxStep = N*M;
+	//static final int MaxStep = N*M;
 	private static BufferedReader read;
 	static int iStart = 0;
 	static int jStart = 0;
 	static int iPrev = 0;
 	static int jPrev = 0;
+	static int CurrStep = 0;
 
 	static boolean solve(int step, int i, int j) 
 	{
@@ -158,17 +159,9 @@ public class knight {
 		
 		int iCurr = i;
 		int jCurr = j;
+		CurrStep = step;
 		Board[i][j] = step;
-		if(step == 1)
-		{
-			iPrev = iCurr;
-			jPrev = jCurr;
-		}
-		if(step == 2)
-		{
-			Board[jPrev][iPrev] = 25;
-		}
-		if (step == (N*M)-1)
+		if (CurrStep == (N*M)-1)
 		{
 			for (int k = 0; k < 8; k++) 
 			{
@@ -191,7 +184,15 @@ public class knight {
 			{ 
 				i = i1;
 				j = j1;
-				
+				if(CurrStep == 1)
+				{
+					iPrev = i;
+					jPrev = j;
+				}
+				if(CurrStep == 2)
+				{
+					Board[jPrev][iPrev] = 25;
+				}
 				degree = newDegree;
 				if (solveClosedFixed(step+1,i1, j1)) return true;
 				else Board[i1][j1] = 0;
