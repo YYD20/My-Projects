@@ -23,6 +23,7 @@ public class knight {
 	static long recurCallsH = 0;      // number of recursive calls to solveWarnsdorff()
 	static long recurCallsCF = 0;      // number of recursive calls to solveClosedFixed()
 	static long recurCallsC = 0;      // number of recursive calls to solveCLosed()
+	static long recurCallsL = 0;  
 	static final int[][] direction={ {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}, {2, -1}, {2, 1} };
 	static int M = 4;
 	static int N = 4;
@@ -35,6 +36,7 @@ public class knight {
 	static int jPrev = 0;
 	static int CurrStep = 0;
 	static Random randNum;
+	static int longestPath = 1;
 
 	static boolean solve(int step, int i, int j) 
 	{
@@ -126,53 +128,7 @@ public class knight {
 			}
 			return false;
 		}
-
-		for (int k = 0; k < 8; k++) 
-		{
-			int i1 = i+direction[k][0];
-			int j1 = j+direction[k][1];
-			int newDegree = degree(i1,j1);
-
-			if (isValidMove(i1,j1) && newDegree < degree )
-			{ 
-				degree = newDegree;
-				if (solveClosed(step+1,i1, j1))
-				{
-					i = i1;
-					j = j1;
-					return true;
-				}
-				else 	
-				{
-					Board[i1][j1] = 0;
-				}
-			}
-		}
-		return false;
-	}
-	static boolean solveClosedFixed(int step, int i, int j)
-	{
-		recurCallsCF++;
-		int degree = 8;
-		//int stepReal = step;
-
-		int iCurr = i;
-		int jCurr = j;
-		CurrStep = step;
-		Board[i][j] = step;
-		if (CurrStep == (N*M)-1)
-		{
-			for (int k = 0; k < 8; k++) 
-			{
-				int i1 = i+direction[k][0];
-				int j1 = j+direction[k][1];
-
-				if (isValidMoveEnd(i1,j1) )
-					return true;
-			}
-			return false;
-		}
-
+		if(step == N*M)return true;
 		for (int k = 0; k < 8; k++) 
 		{
 			int i1 = i+direction[k][0];
@@ -183,6 +139,39 @@ public class knight {
 			{ 
 				i = i1;
 				j = j1;
+				degree = newDegree;
+				if (solveClosed(step+1,i1, j1))return true;
+				else Board[i1][j1] = 0;
+			}
+		}
+		return false;
+	}
+	static boolean solveClosedFixed(int step, int i, int j)
+	{
+		recurCallsCF++;
+		int degree = 8;
+		Board[i][j] = step;
+		int MaxStep = N*M;
+		if (step == (N*M)-1)
+		{
+			for (int k = 0; k < 8; k++) 
+			{
+				int i1 = i+direction[k][0];
+				int j1 = j+direction[k][1];
+				if (isValidMoveEnd(i1,j1) )return true;
+			}
+			return false;
+		}
+		if(step == N*M)return true;
+		for (int k = 0; k < 8; k++) 
+		{
+			int i1 = i+direction[k][0];
+			int j1 = j+direction[k][1];
+			int newDegree = degree(i1,j1);
+
+			if (isValidMove(i1,j1) && newDegree < degree )
+			{ 
+				
 				if(CurrStep == 1)
 				{
 					iPrev = i;
@@ -190,11 +179,45 @@ public class knight {
 				}
 				if(CurrStep == 2)
 				{
-					Board[jPrev][iPrev] = 25;
+					Board[jPrev][iPrev] = MaxStep;
 				}
+				i = i1;
+				j = j1;
+				longestPath++;
 				degree = newDegree;
-				if (solveClosedFixed(step+1,i1, j1)) return true;
+				if (solveClosedFixed(step+1,i1, j1))return true;
 				else Board[i1][j1] = 0;
+			}
+		}
+		return false;
+	}
+	static boolean solveLongest(int step, int i, int j)
+	{
+		// Warnsdorf Heurisitc Approach
+		recurCallsL++;
+		int degree = 8;
+		
+		Board[i][j] = step;
+		if (step == N*M) return true;
+		for (int k = 0; k < 8; k++) 
+		{
+			int i1 = i+direction[k][0];
+			int j1 = j+direction[k][1];
+			int newDegree = degree(i1,j1);
+			if (isValidMove(i1,j1) && newDegree<degree)
+			{ 
+				degree = newDegree;
+				if (solveLongest(step+1,i1, j1))
+				{
+					i = i1;
+					j = j1;
+					//longestPath++;
+					return true;
+				}
+				else 	
+				{
+					Board[i1][j1] = 0;
+				}
 			}
 		}
 		return false;
@@ -272,29 +295,25 @@ public class knight {
 		int Start = random;
 		iStart = 0;
 		jStart = 0;
-		boolean closedPath = solveClosed(1,iStart,jStart);
+		boolean closedPath = solveClosed(1,0,0);
 		if(!closedPath)
 		{
 			for (int i = 0; i <N  ; i++)
 			{
-				for (int j = 0; j < M ; j++)
+				if(closedPath == true) break;
+				for (int j = 0; j < M  ; j++)
 				{
-					//printBoard(Board);
 					//Reset Board
-					//sysout
-					iStart = i;
-					jStart = j;	
-					for (int k = 0;k < N; k++)
-					{
-						for (int l = 0; l < M; l++) 
-						{
+					if(closedPath == true)break;	
+					for (int k = 0;k < N; k++){
+						for (int l = 0; l < M; l++) {
 							Board[k][l] = 0;
 						}
 					}
+					iStart = i;
+					jStart = j;
 					
-					Board[i][j] = CurrStep;
-					
-					closedPath = solveClosed(CurrStep,iStart,jStart);
+					closedPath = solveClosed(1,iStart,jStart);
 				}
 			}
 		}
@@ -316,28 +335,29 @@ public class knight {
 		jStart = 0;
 		randNum = new Random();
 		
-		/*boolean closedPathFixed = solveClosedFixed(1,iStart,jStart);
+		boolean closedPathFixed = solveClosedFixed(1,iStart,jStart);
 		if(!closedPathFixed)
 		{
-			for (int i = 0; i <N && closedPathFixed!=true ; i++)
+			for (int i = 0; i <N  ; i++)
 			{
-				//if(closedPath == true) break;
-				for (int j = 0; j < M && closedPathFixed!=true ; j++)
+				if(closedPathFixed == true) break;
+				for (int j = 0; j < M  ; j++)
 				{
 					//Reset Board
-					//printBoard(Board);
+					if(closedPathFixed == true)break;	
 					for (int k = 0;k < N; k++){
 						for (int l = 0; l < M; l++) {
 							Board[k][l] = 0;
+							longestPath = 0;
 						}
 					}
 					iStart = i;
 					jStart = j;
-					//if(closedPath == true)break;	
-					
+					longestPath ++;
 					closedPathFixed = solveClosedFixed(1,iStart,jStart);
 				}
 			}
+			
 		}
 		if (closedPathFixed)
 		{
@@ -347,8 +367,46 @@ public class knight {
 		else System.out.println("No tour was found.");
 
 		System.out.println("Number of recursive calls = " + recurCallsCF);
+		
+		Board = new int[N][M];
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < M; j++) 
+				Board[i][j] = 0;
 
-*/
+
+		boolean longestP = solveClosedFixed(1,iStart,jStart);
+		if(!longestP)
+		{
+			for (int i = 0; i <N  ; i++)
+			{
+				if(longestP == true) break;
+				for (int j = 0; j < M  ; j++)
+				{
+					//Reset Board
+					if(longestP == true)break;	
+					for (int k = 0;k < N; k++){
+						for (int l = 0; l < M; l++) {
+							Board[k][l] = 0;
+							longestPath = 0;
+						}
+					}
+					iStart = i;
+					jStart = j;
+					longestPath ++;
+					longestP = solveClosedFixed(1,iStart,jStart);
+				}
+			}
+			
+		}		if (longestP)
+		{
+			System.out.println("\nLongestPath");
+			printBoard(Board);
+		}
+		else System.out.println(" tour was found use regular algorithm");
+
+		System.out.println("Number of recursive calls = " + recurCallsH+"\nLongest Path Length = "+longestPath);
+
+
 	} 
 
 }
